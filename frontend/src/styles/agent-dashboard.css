@@ -1,0 +1,198 @@
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Recent Money Received table styles */
+.received-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.received-table thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.received-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+.received-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.received-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.received-table td {
+  padding: 12px;
+  color: #475569;
+}
+
+.received-table .view-btn {
+  padding: 6px 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.received-table .view-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+/* Recent Withdrawals styles */
+.withdrawals-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.withdrawals-table thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.withdrawals-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+.withdrawals-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.withdrawals-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.withdrawals-table td {
+  padding: 12px;
+  color: #475569;
+}
+
+.withdrawals-table .view-btn {
+  padding: 6px 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.withdrawals-table .view-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .received-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .received-card {
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .received-right .amount {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
+
+/* ===== DARK MODE STYLES FOR AGENT DASHBOARD ===== */
+
+[data-theme="dark"] .received-table thead {
+  background: #0f172a;
+  border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .received-table th {
+  color: var(--text);
+}
+
+[data-theme="dark"] .received-table tbody tr {
+  border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .received-table tbody tr:hover {
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .received-table td {
+  color: var(--text);
+}
+
+[data-theme="dark"] .withdrawals-table thead {
+  background: #0f172a;
+  border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .withdrawals-table th {
+  color: var(--text);
+}
+
+[data-theme="dark"] .withdrawals-table tbody tr {
+  border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .withdrawals-table tbody tr:hover {
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .withdrawals-table td {
+  color: var(--text);
+}
+

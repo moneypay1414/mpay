@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+import dotenv from 'dotenv';
+import path from 'path';
+import mongoose from 'mongoose';
+
+// load env like server.js does
+dotenv.config();
+if (!process.env.MONGODB_URI) {
+  const parentEnv = path.resolve(process.cwd(), '..', '.env');
+  dotenv.config({ path: parentEnv });
+}
+
+import ExchangeRate from '../models/ExchangeRate.js';
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/moneypay';
+
+async function run() {
+  try {
+    await mongoose.connect(mongoUri, { });
+    console.log('Connected to MongoDB');
+
+    const targets = [
+      { fromCode: 'SSP', toCode: 'UGX', buyingPrice: 2000, sellingPrice: 1800 },
+      { fromCode: 'USD', toCode: 'SSP', buyingPrice: 5800, sellingPrice: 5700 }
+    ];
+
+    for (const t of targets) {
+      const exactQuery = { fromCode: t.fromCode.toUpperCase(), toCode: t.toCode.toUpperCase(), buyingPrice: Number(t.buyingPrice), sellingPrice: Number(t.sellingPrice) };
+      const found = await ExchangeRate.findOne(exactQuery);
+      if (found) {
+        await ExchangeRate.findByIdAndDelete(found._id);
+        console.log(`Deleted exact match: ${t.fromCode}->${t.toCode} (${t.buyingPrice}/${t.sellingPrice})`);
+      } else {
+        // try by codes only
+        const byCodes = await ExchangeRate.findOne({ fromCode: t.fromCode.toUpperCase(), toCode: t.toCode.toUpperCase() });
+        if (byCodes) {
+          await ExchangeRate.findByIdAndDelete(byCodes._id);
+          console.log(`Deleted by pair codes: ${t.fromCode}->${t.toCode} (prices differed)`);
+        } else {
+          console.log(`No exchange-rate found for ${t.fromCode}->${t.toCode}`);
+        }
+      }
+    }
+
+    await mongoose.disconnect();
+    console.log('Done');
+    process.exit(0);
+  } catch (err) {
+    console.error('Error running removal script', err);
+    try { await mongoose.disconnect(); } catch (e) {}
+    process.exit(1);
+  }
+}
+
+run();

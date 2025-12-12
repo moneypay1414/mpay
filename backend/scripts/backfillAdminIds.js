@@ -1,0 +1,67 @@
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import User from '../models/User.js';
+
+dotenv.config();
+
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGO_URL || 'mongodb://localhost:27017/moneypay';
+
+async function generateUniqueId(field, roleFilter) {
+  let isUnique = false;
+  let id = null;
+  while (!isUnique) {
+    id = (Math.floor(Math.random() * 900000) + 100000).toString();
+    const query = {};
+    query[field] = id;
+    if (roleFilter) query.role = roleFilter;
+    const exists = await User.findOne(query);
+    if (!exists) isUnique = true;
+  }
+  return id;
+}
+
+async function backfill() {
+  try {
+    await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to MongoDB');
+
+    // Sanitize any empty-string agentId/adminId to undefined (so sparse indexes ignore them)
+    const sanitizeRes = await User.updateMany({ agentId: '' }, { $unset: { agentId: '' } });
+    console.log(`Sanitized agentId empty strings: matched ${sanitizeRes.matchedCount || sanitizeRes.n || 0}`);
+    const sanitizeRes2 = await User.updateMany({ adminId: '' }, { $unset: { adminId: '' } });
+    console.log(`Sanitized adminId empty strings: matched ${sanitizeRes2.matchedCount || sanitizeRes2.n || 0}`);
+
+    // Backfill agent IDs for agents missing agentId
+    const agents = await User.find({ role: 'agent', $or: [{ agentId: { $exists: false } }, { agentId: null }] });
+    console.log(`Found ${agents.length} agent(s) without agentId`);
+    let updatedAgents = 0;
+    for (const agent of agents) {
+      const newId = await generateUniqueId('agentId', 'agent');
+      agent.agentId = newId;
+      await agent.save();
+      console.log(`Updated agent ${agent.email || agent._id} -> agentId: ${newId}`);
+      updatedAgents++;
+    }
+
+    // Backfill admin IDs for admins missing adminId
+    const admins = await User.find({ role: 'admin', $or: [{ adminId: { $exists: false } }, { adminId: null }] });
+    console.log(`Found ${admins.length} admin(s) without adminId`);
+    let updatedAdmins = 0;
+    for (const admin of admins) {
+      const newId = await generateUniqueId('adminId', 'admin');
+      admin.adminId = newId;
+      await admin.save();
+      console.log(`Updated admin ${admin.email || admin._id} -> adminId: ${newId}`);
+      updatedAdmins++;
+    }
+
+    console.log(`Backfill complete. Updated ${updatedAgents} agents and ${updatedAdmins} admins.`);
+  } catch (err) {
+    console.error('Error during backfill:', err);
+  } finally {
+    await mongoose.disconnect();
+    process.exit(0);
+  }
+}
+
+backfill();

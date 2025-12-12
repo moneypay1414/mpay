@@ -1,0 +1,232 @@
+.info-box {
+  background-color: var(--light);
+  border-left: 4px solid var(--primary);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.info-box.warning {
+  border-left-color: var(--warning);
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.info-box h4 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.info-box ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.info-box li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .page-container {
+    max-width: 100%;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .page-header p {
+    font-size: 13px;
+  }
+
+  .user-info {
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .info-box {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .info-box h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .info-box ol {
+    padding-left: 18px;
+  }
+
+  .info-box li {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .page-header p {
+    font-size: 12px;
+  }
+
+  .user-info {
+    padding: 10px !important;
+    border-radius: 4px !important;
+  }
+
+  .user-info .mb-2 {
+    margin-bottom: 6px !important;
+  }
+
+  .info-box {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left-width: 3px;
+  }
+
+  .info-box h4 {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .info-box ol {
+    padding-left: 16px;
+  }
+
+  .info-box li {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .info-box p {
+    font-size: 12px;
+  }
+}
+
+/* ===== DARK MODE STYLES ===== */
+
+[data-theme="dark"] .info-box {
+  background-color: #1e293b;
+  border-left-color: var(--primary);
+  color: var(--text);
+}
+
+[data-theme="dark"] .info-box.warning {
+  background-color: rgba(251, 191, 36, 0.1);
+  border-left-color: var(--warning);
+}
+
+[data-theme="dark"] .info-box h4 {
+  color: white;
+}
+
+[data-theme="dark"] .info-box ol,
+[data-theme="dark"] .info-box li {
+  color: var(--text);
+}
+
+[data-theme="dark"] .info-box li {
+  color: var(--text-light);
+}
+
+/* Commission Breakdown Styles */
+.commission-breakdown {
+  background-color: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.commission-breakdown h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--dark);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  color: var(--text);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.breakdown-row.total {
+  padding: 10px 0;
+  margin-top: 5px;
+  border-top: 2px solid var(--primary);
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.breakdown-row.commission-fee {
+  padding: 8px 0;
+  margin-top: 3px;
+  background-color: rgba(245, 158, 11, 0.05);
+  border-radius: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: var(--warning);
+  font-weight: 500;
+}
+
+.breakdown-row.agent-receives {
+  padding: 10px 0;
+  background-color: rgba(34, 197, 94, 0.05);
+  border-radius: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Dark mode commission breakdown */
+[data-theme="dark"] .commission-breakdown {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .commission-breakdown h4 {
+  color: white;
+}
+
+[data-theme="dark"] .breakdown-row {
+  color: var(--text-light);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .breakdown-row.total {
+  color: white;
+  border-top-color: var(--primary);
+}
+
+[data-theme="dark"] .breakdown-row.commission-fee {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+}
+
+[data-theme="dark"] .breakdown-row.agent-receives {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
