@@ -16,3 +16,6 @@ yarn-error.log*
 *~
 .cache/
 .parcel-cache/
+
+# Local Netlify folder
+.netlify

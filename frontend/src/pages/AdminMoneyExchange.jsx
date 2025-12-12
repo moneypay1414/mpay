@@ -23,6 +23,7 @@ export default function AdminMoneyExchange() {
     let mounted = true;
     const load = async () => {
       try {
+        // auto fetch currencies
         const c = await adminAPI.getCurrencies();
         const cd = c?.data || c;
         const cl = Array.isArray(cd) ? cd : (Array.isArray(cd?.currencies) ? cd.currencies : []);
